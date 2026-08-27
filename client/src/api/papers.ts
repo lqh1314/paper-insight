@@ -1,10 +1,6 @@
 import axios from 'axios';
 import type {
-  ApiResponse,
-  PaperListResult,
-  PaperDetail,
-  UploadPaperRequest,
-  PaperImage,
+  ApiResponse, PaperListResult, PaperDetail, PaperImage,
 } from '@shared/api.interface';
 
 const api = axios.create({ baseURL: '/' });
@@ -23,8 +19,22 @@ export async function getPaperDetail(id: string): Promise<PaperDetail> {
   return res.data.data;
 }
 
-export async function uploadPaper(data: UploadPaperRequest): Promise<{ id: string }> {
-  const res = await api.post<ApiResponse<{ id: string }>>('/api/papers/upload', data);
+/**
+ * 上传论文文件（multipart/form-data）
+ * 上传后后端自动开始解析
+ */
+export async function uploadPaper(
+  file: File,
+  sourceType: 'single' | 'batch' = 'single',
+  batchId?: string,
+): Promise<{ id: string }> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('sourceType', sourceType);
+  if (batchId) formData.append('batchId', batchId);
+  const res = await api.post<ApiResponse<{ id: string }>>('/api/papers/upload', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return res.data.data;
 }
 

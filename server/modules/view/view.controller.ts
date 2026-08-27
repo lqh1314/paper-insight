@@ -1,12 +1,11 @@
-import { Controller, Get, Render, Req } from '@nestjs/common';
-import type { Request } from 'express';
+import { Controller, Get, Res } from '@nestjs/common';
+import { join } from 'path';
+import type { Response } from 'express';
 
 @Controller()
 export class ViewController {
-  @Get(['/', '*'])
-  @Render('index')
-  async render(@Req() req: Request): Promise<{ __platform__: string }> {
-    const platformData = (req as any).__platform_data__ ?? {};
-    return { __platform__: JSON.stringify(platformData) };
+  @Get(['/', '/paper/:id', '/compare', '/ppt/:paperId/fullscreen'])
+  async render(@Res() res: Response): Promise<void> {
+    res.sendFile(join(process.cwd(), 'dist/client/index.html'));
   }
 }
