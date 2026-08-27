@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(220 14% 14%);
+  --primary: hsl(221 83% 53%);
+  --primary-foreground: hsl(220 14% 98%);
+  --muted: hsl(220 14% 96%);
+  --muted-foreground: hsl(218 7% 59%);
+  --border: hsl(220 14% 89%);
+  --radius: 0.5rem;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft Yahei', sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+}
