@@ -11,6 +11,7 @@ export const paper = pgTable('paper', {
   id: uuid('id').primaryKey().defaultRandom(),
   title: varchar('title', { length: 500 }).notNull(),
   fileName: varchar('file_name', { length: 500 }).notNull(),
+  filePath: text('file_path'),
   fileUrl: text('file_url').notNull(),
   fileType: varchar('file_type', { length: 50 }),
   fileSize: bigint('file_size', { mode: 'number' }),
