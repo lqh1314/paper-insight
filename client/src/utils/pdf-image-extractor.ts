@@ -1,4 +1,4 @@
-import { getDocument } from 'pdfjs-dist';
+import * as pdfjsLib from 'pdfjs-dist';
 import type { PaperImage } from '@shared/api.interface';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -9,7 +9,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
 const MIN_IMAGE_SIZE = 100;
 const SKIP_TYPES = ['mask', 'smask'];
 
-export async function extractImagesFromPdf(paperId: string, pdfUrl: string): Promise<PaperImage[]> {
+export async function extractImagesFromPdf(paperId: string, _pdfUrl: string): Promise<PaperImage[]> {
   // 通过后端代理接口获取PDF，避免CORS跨域问题
   const proxyUrl = `/api/papers/${paperId}/file-proxy`;
   const response = await fetch(proxyUrl);
@@ -17,7 +17,7 @@ export async function extractImagesFromPdf(paperId: string, pdfUrl: string): Pro
     throw new Error(`PDF文件获取失败: ${response.status}`);
   }
   const arrayBuffer = await response.arrayBuffer();
-  const pdf = await getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+  const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
   const images: PaperImage[] = [];
 
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
