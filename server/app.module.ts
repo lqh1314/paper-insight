@@ -1,6 +1,7 @@
-import { APP_FILTER } from '@nestjs/core';
 import { Module } from '@nestjs/common';
-import { PlatformModule } from '@lark-apaas/fullstack-nestjs-core';
+import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
+import { DatabaseModule } from './database/database.module';
 import { GlobalExceptionFilter } from './common/filters/exception.filter';
 import { PapersModule } from './modules/papers/papers.module';
 import { PaperPptModule } from './modules/paper-ppt/paper-ppt.module';
@@ -9,7 +10,8 @@ import { ViewModule } from './modules/view/view.module';
 
 @Module({
   imports: [
-    PlatformModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: ['.env'] }),
+    DatabaseModule,
     PapersModule,
     PaperPptModule,
     PaperQaModule,
