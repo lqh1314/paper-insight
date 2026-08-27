@@ -1,0 +1,58 @@
+{
+  "name": "paper-insight",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI论文智析 - 上传论文自动解析要点、生成PPT、AI智能问答",
+  "scripts": {
+    "dev": "./scripts/dev.sh",
+    "dev:server": "NODE_ENV=development nest start --watch",
+    "dev:client": "NODE_ENV=development vite --config vite.config.ts",
+    "build": "./scripts/build.sh",
+    "build:prod": "npm run build:server && npm run build:client",
+    "build:server": "NODE_ENV=production nest build",
+    "build:client": "NODE_ENV=production vite build --config vite.config.ts",
+    "start": "NODE_ENV=production node main.js",
+    "type:check": "concurrently -n \"server,client\" -c \"blue,green\" \"npm run type:check:server\" \"npm run type:check:client\"",
+    "type:check:client": "tsc --noEmit --project tsconfig.app.json",
+    "type:check:server": "tsc --noEmit --project tsconfig.node.json"
+  },
+  "dependencies": {
+    "@lark-apaas/fullstack-nestjs-core": "^1.1.60",
+    "@nestjs/axios": "^4.0.1",
+    "@nestjs/common": "^10.4.20",
+    "@nestjs/config": "^3.3.0",
+    "@nestjs/core": "^10.4.20",
+    "@nestjs/platform-express": "^10.4.20",
+    "@tanstack/react-query": "^5.90.12",
+    "axios": "^1.12.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "dayjs": "^1.11.15",
+    "drizzle-orm": "0.44.6",
+    "hbs": "^4.2.0",
+    "pdfjs-dist": "^6.2.108",
+    "pptxgenjs": "^4.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^6.30.1",
+    "reflect-metadata": "^0.1.14",
+    "sonner": "^2.0.7",
+    "tslib": "^2.8.1",
+    "lucide-react": "^0.554.0",
+    "clsx": "~2.0.1",
+    "tailwind-merge": "~3.4.0"
+  },
+  "devDependencies": {
+    "@lark-apaas/client-toolkit": "^1.2.67",
+    "nestjs/cli": "^10.4.9",
+    "typescript": "^5.9.2",
+    "vite": "^7.3.1",
+    "tailwindcss": "^4.1.13"
+  },
+  "actionPlugins": {
+    "@official-plugins/ai-doc-parser": "1.0.16",
+    "@official-plugins/ai-text-to-json": "1.0.24",
+    "@official-plugins/ai-image-understanding": "1.0.20",
+    "@official-plugins/ai-text-generate": "1.0.18"
+  }
+}
